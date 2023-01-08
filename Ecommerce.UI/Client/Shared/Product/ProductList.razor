@@ -3,16 +3,16 @@
 <lu class="list-unstyled">
     @foreach (var item in Products)
     {
-        <li class="media my-3">
+        <li>
             @foreach (var itemImg in @item.images)
             {
-                <div class="media-img-wrapper mr-2">
+                <div>
                     <a href="#">
-                        <img calss="media img" src="@itemImg.url" alt="@item.slug" />
+                        <img class="img-fluid rounded mx-auto d-block" src="@itemImg.url" alt="@item.slug" />
                     </a>
                 </div>
             }       
-            <div class="media-body">
+            <div>
                 <a href="#">
                     <h4 class="mb-0">@item.slug</h4>
                 </a>
