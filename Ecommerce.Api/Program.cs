@@ -1,13 +1,13 @@
 using Ecommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Ecommerce.Ioc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<DataContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+
+Ioc.IocInfrastructure(builder.Services, builder.Configuration);
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
