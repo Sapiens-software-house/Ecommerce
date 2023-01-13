@@ -29,7 +29,7 @@ namespace Ecommerce.UI.Shared.Product
         public PriceLimit priceLimit { get; set; } // Price value possible to set while adding/updating offer. Higher than max or lower than min are not possible to use.            
         public Restriction restrictions { get; set; } // PEGI restrictions            
         public Requirement requirements { get; set; } // Requirements
-        public Video[] videos { get; set; } // Videos            
-        public Categories[] categories { get; set; } // Categories            
+        public List<Video> videos { get; set; } // Videos            
+        public List<Categories> categories { get; set; } // Categories            
     }
 }

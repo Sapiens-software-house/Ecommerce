@@ -8,7 +8,9 @@ namespace Ecommerce.UI.Shared.Product
 {
     public class Requirement
     {
-        public Minimal minimal { get; set; }
-        public Recommended recommended { get; set; }
+        public int Id { get; set; }
+        public int IdProduto { get; set; }
+        public List<Minimal> minimal { get; set; }
+        public List<Recommended> recommended { get; set; }
     }
 }

@@ -8,6 +8,8 @@ namespace Ecommerce.UI.Shared.Product
 {
     public class Minimal
     {
+        public int? Id { get; set; }
+        public int? IdProduto { get; set; }
         public string reqprocessor { get; set; } // Processor
         public string reqgraphics { get; set; } // Graphics
         public string reqmemory { get; set; } // Memory
