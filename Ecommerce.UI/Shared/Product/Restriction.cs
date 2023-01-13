@@ -8,6 +8,8 @@ namespace Ecommerce.UI.Shared.Product
 {
     public class Restriction
     {
+        public int Id { get; set; }
+        public int IdProduto { get; set; }
         public bool? pegi_violence { get; set; } // Violence
         public bool? pegi_profanity { get; set; } // Profanity
         public bool? pegi_discrimination { get; set; } // Discrimination
