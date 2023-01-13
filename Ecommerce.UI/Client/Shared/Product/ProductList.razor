@@ -95,37 +95,43 @@
            }  // PEGI restrictions
            ,requirements = new Requirement
            {
-                minimal = new Minimal
+                minimal = new List<Minimal>
                 {
-                    reqdiskspace = ""
-                    ,
-                    reqgraphics = ""
-                    ,
-                    reqmemory = ""
-                    ,
-                    reqother = ""
-                    ,
-                    reqprocessor = ""
-                    ,
-                    reqsystem = ""
+                    new Minimal
+                    {
+                        reqdiskspace = ""
+                        ,
+                        reqgraphics = ""
+                        ,
+                        reqmemory = ""
+                        ,
+                        reqother = ""
+                        ,
+                        reqprocessor = ""
+                        ,
+                        reqsystem = ""
+                    }
 
                 }
-                , recommended = new Recommended
+                , recommended = new List<Recommended>
                 {
-                    reqdiskspace = ""
-                    ,
-                    reqgraphics = ""
-                    ,
-                    reqmemory = ""
-                    ,
-                    reqother = ""
-                    ,
-                    reqprocessor = ""
-                    ,
-                    reqsystem = ""
+                    new Recommended
+                    {
+                        reqdiskspace = ""
+                        ,
+                        reqgraphics = ""
+                        ,
+                        reqmemory = ""
+                        ,
+                        reqother = ""
+                        ,
+                        reqprocessor = ""
+                        ,
+                        reqsystem = ""
+                    }
                 }
            }// Requirements
-           ,videos = new Video[]
+           ,videos = new List<Video>
            {
                new Video
                {
@@ -134,7 +140,7 @@
                }
                ,
            } // Videos
-           ,categories = new Categories[]
+           ,categories = new List<Categories>
            {
                 new Categories
                {

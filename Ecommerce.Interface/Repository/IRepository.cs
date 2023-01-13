@@ -9,10 +9,14 @@ namespace Ecommerce.Interface.Repository
 {
     public interface IRepository<T> where T : class // T is domain
     {
-        IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate = null);
-        T Get(Expression<Func<T, bool>> predicate);
+        T GetById(int id);
+        IEnumerable<T> GetAll();
+        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
         void Add(T entity);
+        void AddRange(IEnumerable<T> entities);
         void Update(T entity);
         void Delete(T entity);
+        void DeleteRange(IEnumerable<T> entities);
+        void Save();
     }
 }

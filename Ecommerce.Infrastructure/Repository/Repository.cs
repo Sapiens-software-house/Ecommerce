@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Interface.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +9,51 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Infrastructure.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class, IDisposable
     {
-        public Repository() { 
-        
-        } 
+        protected readonly DbContext context;
+
+        public Repository(DbContext context) {
+
+            this.context = context;
+        }
+
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            context.Set<T>().Add(entity);
+        }
+
+        public void AddRange(IEnumerable<T> entities)
+        {
+            context.Set<T>().AddRange(entities);
         }
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            context.Set<T>().Remove(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> predicate)
+        public void DeleteRange(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            context.Set<T>().RemoveRange(entities);
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate = null)
+        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        {
+            return context.Set<T>().Where(expression);
+        }
+
+        public IEnumerable<T> GetAll()
+        {
+            return context.Set<T>().ToList();
+        }
+
+        public T GetById(int id)
+        {
+            return context.Set<T>().Find(id);
+        }
+
+        public void Save()
         {
             throw new NotImplementedException();
         }
