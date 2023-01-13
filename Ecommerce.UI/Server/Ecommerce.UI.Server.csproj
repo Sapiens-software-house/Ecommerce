@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Ecommerce.Infrastructure\Ecommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\Client\Ecommerce.UI.Client.csproj" />
     <ProjectReference Include="..\Shared\Ecommerce.UI.Shared.csproj" />
   </ItemGroup>
