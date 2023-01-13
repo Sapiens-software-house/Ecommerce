@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Infrastructure.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class, IDisposable
+    public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly DbContext context;
 
