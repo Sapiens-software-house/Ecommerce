@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,13 @@ namespace Ecommerce.UI.Shared.Product
         public Restriction restrictions { get; set; } // PEGI restrictions            
         public Requirement requirements { get; set; } // Requirements
         public List<Video> videos { get; set; } // Videos            
-        public List<Categories> categories { get; set; } // Categories            
+        public List<Categories> categories { get; set; } // Categories
+
+        // public bool Visible { get; set; } = true;
+        public bool Deleted { get; set; } = false;
+        [NotMapped]
+        public bool Editing { get; set; } = false;
+        [NotMapped]
+        public bool IsNew { get; set; } = false;
     }
 }
