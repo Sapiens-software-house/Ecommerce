@@ -20,15 +20,10 @@ namespace Ecommerce.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CartItem>()
-                .HasKey(ci => new { ci.UserId, ci.ProductId });
-
-            modelBuilder.Entity<OrderItem>()
-                .HasKey(oi => new { oi.OrderId, oi.ProductId });
-
+            modelBuilder.Entity<Product>()
+                .HasKey(oi => new { oi.id });
             modelBuilder.Entity<Image>()
                 .HasKey(oi => new { oi.IdProduto });
-
             modelBuilder.Entity<PriceLimit>()
                 .HasKey(oi => new { oi.IdProduto });
             modelBuilder.Entity<Restriction>()
@@ -40,15 +35,15 @@ namespace Ecommerce.Infrastructure.Data
             modelBuilder.Entity<Recommended>()
                 .HasKey(oi => new { oi.ProductId });
             modelBuilder.Entity<Video>()
-                .HasKey(oi => new { oi.IdProduto });            
+                .HasKey(oi => new { oi.IdProduto });
+            modelBuilder.Entity<Categories>()
+                .HasKey(oi => new { oi.ProductId });
             modelBuilder.Entity<CartItem>()
-                .HasKey(oi => new { oi.ProductId, oi.UserId });
+                .HasKey(ci => new { ci.UserId, ci.ProductId });
             modelBuilder.Entity<Order>()
                 .HasKey(oi => new { oi.productId, oi.UserId });
             modelBuilder.Entity<OrderItem>()
-                .HasKey(oi => new { oi.ProductId });
-            modelBuilder.Entity<Categories>()
-                .HasKey(oi => new { oi.ProductId });
+                .HasKey(oi => new { oi.OrderId, oi.ProductId });
         }
 
         public DbSet<Product> Products {get; set;}

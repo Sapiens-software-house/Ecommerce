@@ -23,9 +23,19 @@ namespace Ecommerce.Infrastructure.Repository
             context.Set<T>().Add(entity);
         }
 
+        public async Task AddAsync(T entity)
+        {
+            await context.Set<T>().AddAsync(entity);
+        }
+
         public void AddRange(IEnumerable<T> entities)
         {
             context.Set<T>().AddRange(entities);
+        }
+
+        public async Task AddRangeAsync(IEnumerable<T> entities)
+        {
+            await context.Set<T>().AddRangeAsync(entities);
         }
 
         public void Delete(T entity)
@@ -43,9 +53,19 @@ namespace Ecommerce.Infrastructure.Repository
             return context.Set<T>().Where(expression);
         }
 
+        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> expression)
+        {
+            return context.Set<T>().Where(expression);
+        }
+
         public IEnumerable<T> GetAll()
         {
             return context.Set<T>().ToList();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await context.Set<T>().ToListAsync();
         }
 
         public T GetById(int id)
@@ -53,14 +73,54 @@ namespace Ecommerce.Infrastructure.Repository
             return context.Set<T>().Find(id);
         }
 
-        public void Save()
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Set<T>().FindAsync(id);
         }
 
-        public void Update(T entity)
+        public void Save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
+        }
+
+        public void SaveAsync()
+        {
+            context.SaveChangesAsync();
+        }
+
+        public void Update(int id, Action<T> updateAction)
+        {
+            var entity = context.Set<T>().Find(id);
+            updateAction(entity);
+        }
+
+        public async void UpdateAsync(int id, Action<T> updateAction)
+        {
+            var entity = await context.Set<T>().FindAsync(id);
+            updateAction(entity);
+        }
+
+        public async Task<TResult> ExistsAsync<TResult>(int id, Func<TResult> ifExist)
+        {
+            TResult? result = default;
+
+            var entity = await context.Set<T>().FindAsync(id);
+            if (entity != null)
+            {
+                result = ifExist();
+            }
+            return result;
+        }
+        public TResult Exists<TResult>(int id, Func<TResult> ifExist)
+        {
+            TResult? result = default;
+
+            var entity = context.Set<T>().Find(id);
+            if (entity != null)
+            {
+                result = ifExist();
+            }
+            return result;
         }
     }
 }

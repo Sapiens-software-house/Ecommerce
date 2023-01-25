@@ -1,6 +1,8 @@
-﻿using Ecommerce.Interface.IProductRepository;
+﻿using Ecommerce.Infrastructure.UserRepository;
+using Ecommerce.Interface.IProductRepository;
 using Ecommerce.Interface.IroductRepository;
 using Ecommerce.Interface.IUnitOfWork;
+using Ecommerce.Interface.IUserRepository;
 using Ecommerce.Interface.ProductRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,6 +28,7 @@ namespace Ecommerce.UnitOfWork.UOW
             RequirementRepository = new RequirementRepository(this.context);
             RestrictionRepository = new RestrictionRepository(this.context);
             VideoRepository = new VideoRepository(this.context);
+            UserRepository = new UserRepository(this.context);
         }
         public IImageRepository ImageRepository { get; private set; }
 
@@ -42,6 +45,7 @@ namespace Ecommerce.UnitOfWork.UOW
         public IRestrictionRepository RestrictionRepository { get; private set; }
 
         public IVideoRepository VideoRepository { get; private set; }
+        public IUserRepository UserRepository { get; private set; }
 
         public void Dispose()
         {
@@ -51,6 +55,11 @@ namespace Ecommerce.UnitOfWork.UOW
         public int Save()
         {
             return context.SaveChanges();
+        }
+
+        public async Task<int> SaveAsync()
+        {
+            return await context.SaveChangesAsync();
         }
     }
 }

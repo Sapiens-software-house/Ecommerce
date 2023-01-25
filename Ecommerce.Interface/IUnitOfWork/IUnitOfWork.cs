@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Interface.IProductRepository;
+using Ecommerce.Interface.IUserRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,12 @@ namespace Ecommerce.Interface.IUnitOfWork
         {
             get;
         }
+        IUserRepository.IUserRepository UserRepository
+        {
+            get;
+        }
+
         int Save();
+        Task<int> SaveAsync();
     }
 }
