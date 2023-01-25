@@ -9,6 +9,7 @@ namespace Ecommerce.UI.Shared.Orders
     public class Order
     {
         public string Id { get; set; }
+        public string UserId { get; set; }
         public string productId { get; set; }
         public string currency { get; set; }
         public int? maxPrice { get; set; }

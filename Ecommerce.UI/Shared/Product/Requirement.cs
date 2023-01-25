@@ -11,6 +11,8 @@ namespace Ecommerce.UI.Shared.Product
         public int Id { get; set; }
         public int IdProduto { get; set; }
         public List<Minimal> minimal { get; set; }
+        public int minimalId { get; set; }
         public List<Recommended> recommended { get; set; }
+        public int recommendedId { get; set; }
     }
 }
