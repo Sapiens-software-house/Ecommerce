@@ -73,6 +73,15 @@ namespace Ecommerce.Infrastructure.Repository
             return await context.Set<T>().Where(expression).ToListAsync();
         }
 
+        public async Task<IEnumerable<T>> GetAllAsyncPaged(Expression<Func<T, bool>> expression, int page)
+        {
+            var pageResults = 2f;
+
+            return await context.Set<T>().Where(expression)
+                                .Skip((page - 1) * (int)pageResults)
+                                .Take((int)pageResults).ToListAsync();
+        }
+
         public T GetById(int id)
         {
             return context.Set<T>().Find(id);

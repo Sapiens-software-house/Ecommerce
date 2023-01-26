@@ -28,5 +28,7 @@ namespace Ecommerce.Interface.Repository
         void UpdateAsync(int id, Action<T> updateAction);
         Task<TResult> ExistsAsync<TResult>(int id, Func<TResult> ifExist);
         TResult Exists<TResult>(int id, Func<TResult> ifExist);
+
+        Task<IEnumerable<T>> GetAllAsyncPaged(Expression<Func<T, bool>> expression, int page);
     }
 }

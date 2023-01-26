@@ -33,7 +33,7 @@ namespace Ecommerce.UI.Shared.Product
         public List<Video> videos { get; set; } // Videos            
         public List<Categories> categories { get; set; } // Categories
 
-        // public bool Visible { get; set; } = true;
+        public bool Visible { get; set; } = true;
         public bool Deleted { get; set; } = false;
         [NotMapped]
         public bool Editing { get; set; } = false;
