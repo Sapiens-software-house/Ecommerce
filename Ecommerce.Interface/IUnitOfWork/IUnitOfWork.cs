@@ -1,5 +1,5 @@
-﻿using Ecommerce.Interface.IProductRepository;
-using Ecommerce.Interface.IUserRepository;
+﻿using Ecommerce.Interface.IOrderReposiotry;
+using Ecommerce.Interface.IProductRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +43,22 @@ namespace Ecommerce.Interface.IUnitOfWork
             get;
         }
         IUserRepository.IUserRepository UserRepository
+        {
+            get;
+        }
+        IAddressRepository.IAddressRepository AddressRepository
+        {
+            get;
+        }
+        IOrderRepository OrderRepository
+        {
+            get;
+        }
+        IOrderItemRepository.IOrderItemRepository OrderItemRepository
+        {
+            get;
+        }
+        ICartItemRepository.ICartItemRepository CartItemRepository
         {
             get;
         }

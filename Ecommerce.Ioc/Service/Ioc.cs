@@ -1,6 +1,10 @@
-﻿using Ecommerce.Interface.IProductService;
+﻿using Ecommerce.Interface.IAuthService;
+using Ecommerce.Interface.IProductService;
 using Ecommerce.Interface.IUnitOfWork;
+using Ecommerce.Interface.IUserService;
+using Ecommerce.Service.AuthService;
 using Ecommerce.Service.ProductService;
+using Ecommerce.Service.UserService;
 using Ecommerce.UnitOfWork.UOW;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +38,8 @@ namespace Ecommerce.Ioc.Service
             });
             services.AddHttpContextAccessor();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IAddressService, AddressService>();
         }
     }
 }

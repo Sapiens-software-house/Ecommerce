@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Infrastructure.OrderRepository
 {
-    public class OrderRepository : Repository<Order>, IOrderReposiotry
+    public class OrderRepository : Repository<Order>, IOrderRepository
     {
         public OrderRepository(DbContext context) : base(context)
         {

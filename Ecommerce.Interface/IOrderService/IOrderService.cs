@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Interface.IOrderReposiotry
+namespace Ecommerce.Interface.IOrderService
 {
-    public interface IOrderRepository : IRepository<Order>
+    public interface IOrderService
     {
     }
 }
