@@ -1,4 +1,11 @@
-﻿using Ecommerce.Infrastructure.UserRepository;
+﻿using Ecommerce.Infrastructure.AddressRepository;
+using Ecommerce.Infrastructure.CartItemRepository;
+using Ecommerce.Infrastructure.OrderRepository;
+using Ecommerce.Infrastructure.UserRepository;
+using Ecommerce.Interface.IAddressRepository;
+using Ecommerce.Interface.ICartItemRepository;
+using Ecommerce.Interface.IOrderItemRepository;
+using Ecommerce.Interface.IOrderReposiotry;
 using Ecommerce.Interface.IProductRepository;
 using Ecommerce.Interface.IroductRepository;
 using Ecommerce.Interface.IUnitOfWork;
@@ -29,6 +36,11 @@ namespace Ecommerce.UnitOfWork.UOW
             RestrictionRepository = new RestrictionRepository(this.context);
             VideoRepository = new VideoRepository(this.context);
             UserRepository = new UserRepository(this.context);
+            AddressRepository = new AddressRepository(this.context);
+            CartItemRepository = new CartItemRepository(this.context);
+            OrderRepository = new OrderRepository(this.context);
+            OrderItemRepository = new OrderItemRepository(this.context);
+            AddressRepository = new AddressRepository(this.context);
         }
         public IImageRepository ImageRepository { get; private set; }
 
@@ -46,6 +58,10 @@ namespace Ecommerce.UnitOfWork.UOW
 
         public IVideoRepository VideoRepository { get; private set; }
         public IUserRepository UserRepository { get; private set; }
+        public IAddressRepository AddressRepository { get; private set; }
+        public ICartItemRepository CartItemRepository { get; private set; }
+        public IOrderRepository OrderRepository { get; private set; }
+        public IOrderItemRepository OrderItemRepository { get; private set; }
 
         public void Dispose()
         {
