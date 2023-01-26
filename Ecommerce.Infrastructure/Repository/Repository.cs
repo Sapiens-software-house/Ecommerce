@@ -68,6 +68,11 @@ namespace Ecommerce.Infrastructure.Repository
             return await context.Set<T>().ToListAsync();
         }
 
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression)
+        {
+            return await context.Set<T>().Where(expression).ToListAsync();
+        }
+
         public T GetById(int id)
         {
             return context.Set<T>().Find(id);
