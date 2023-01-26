@@ -134,6 +134,5 @@ namespace Ecommerce.Service.AuthService
 
             return jwt;
         }
-
     }
 }
