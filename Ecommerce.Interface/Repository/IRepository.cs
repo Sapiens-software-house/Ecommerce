@@ -19,6 +19,7 @@ namespace Ecommerce.Interface.Repository
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetAll();
         Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression);
         T GetById(int id);
         Task<T> GetByIdAsync(int id);
         void Save();
