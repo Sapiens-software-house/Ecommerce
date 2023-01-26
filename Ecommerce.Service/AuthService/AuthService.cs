@@ -15,11 +15,15 @@ using System.Security.Cryptography;
 using System.Data.Entity;
 using Ecommerce.UI.Shared.ServiceResponse;
 using Ecommerce.UI.Shared.User;
-using System.Configuration;
+using Ecommerce.Interface.IAuthService;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace Ecommerce.Service.AuthService
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
@@ -33,6 +37,10 @@ namespace Ecommerce.Service.AuthService
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
         }
+
+        public int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        public string GetUserEmail() => _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
@@ -59,39 +67,42 @@ namespace Ecommerce.Service.AuthService
         public async Task<ServiceResponse<string>> Login(string email, string password)
         {
             var response = new ServiceResponse<string>();
-            var user = await _unitOfWork.UserRepository.FindAsync(x => x.Email.ToLower().Equals(email.ToLower()));
+            var userToCheck = new User();
 
-            foreach (var item in user)
+            var user = await _unitOfWork.UserRepository.FindAsync(x => x.Email.ToLower().Equals(email.ToLower()));
+            
+            if (user != null)
             {
-                if (user == null)
-                {
-                    response.Success = false;
-                    response.Message = "User not found.";
-                }
-                else if (!VerifyPasswordHash(password, item.PasswordHash, item.PasswordSalt))
-                {
-                    response.Success = false;
-                    response.Message = "Wrong password.";
-                }
-                else
-                {
-                    response.Data = CreateToken(item);
-                }
+                userToCheck = user.FirstOrDefault();
+            }
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found.";
+            }
+            else if (!VerifyPasswordHash(password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Wrong password.";
+            }
+            else
+            {
+                response.Data = CreateToken(userToCheck);
             }
 
             return response;
         }
 
-        private async Task<bool> UserExists(string email)
+        public async Task<bool> UserExists(string email)
         {
-            if (_unitOfWork.UserRepository.ExistsByEmail(email))
+            if (await _unitOfWork.UserRepository.ExistsByEmail(email))
             {
                 return true;
             }
             return false;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
             {
@@ -101,7 +112,7 @@ namespace Ecommerce.Service.AuthService
             }
         }
 
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))
             {
@@ -111,7 +122,7 @@ namespace Ecommerce.Service.AuthService
             }
         }
 
-        private string CreateToken(User user)
+        string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>
             {
@@ -133,6 +144,49 @@ namespace Ecommerce.Service.AuthService
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
             return jwt;
+        }
+
+        public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+        {
+            var user = await _unitOfWork.UserRepository.FindAsync(x => x.Id == userId);
+
+            var userToCheck = new User();
+
+            if (user != null)
+            {
+                userToCheck = user.FirstOrDefault();
+            }
+            else if (user == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = false,
+                    Message = "User not found."
+                };
+            }
+
+            CreatePasswordHash(newPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+            userToCheck.PasswordHash = passwordHash;
+            userToCheck.PasswordSalt = passwordSalt;
+
+            _unitOfWork.UserRepository.SaveAsync();
+
+            return new ServiceResponse<bool> { Data = true, Message = "Password has been changed." };
+        }
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            var userCheck = new User();
+
+            var user = await _unitOfWork.UserRepository.FindAsync(u => u.Email.Equals(email));
+
+            if (user != null)
+            {
+                userCheck = user.FirstOrDefault();
+            }
+
+            return userCheck;
         }
     }
 }

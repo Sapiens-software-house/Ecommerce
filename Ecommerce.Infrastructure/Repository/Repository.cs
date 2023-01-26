@@ -83,9 +83,9 @@ namespace Ecommerce.Infrastructure.Repository
             context.SaveChanges();
         }
 
-        public void SaveAsync()
+        public async void SaveAsync()
         {
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
         public void Update(int id, Action<T> updateAction)

@@ -15,9 +15,9 @@ namespace Ecommerce.Infrastructure.UserRepository
     {
         public UserRepository(DbContext context) : base(context) { }
 
-        public bool ExistsByEmail(string email)
+        public async Task<bool> ExistsByEmail(string email)
         {
-            return context.Set<User>().Any(e => e.Email == email);
+            return await context.Set<User>().AnyAsync(e => e.Email == email);
         }
     }
 }

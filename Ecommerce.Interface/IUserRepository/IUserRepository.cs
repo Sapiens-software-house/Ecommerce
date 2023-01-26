@@ -6,6 +6,6 @@ namespace Ecommerce.Interface.IUserRepository
 {
     public interface IUserRepository : IRepository<User>
     {
-        bool ExistsByEmail(string email);
+        Task<bool> ExistsByEmail(string email);
     }
 }
