@@ -12,6 +12,7 @@ namespace Ecommerce.Interface.IProductService
     {
         Task<ServiceResponse<Product>> CreateProduct(Product product);
         Task<ServiceResponse<bool>> DeleteProduct(int productId);
+        Task<ServiceResponse<List<Product>>> GetProductsAsync();
         Task<ServiceResponse<Product>> GetProductAsync(int productId);
         Task<ServiceResponse<ProductSearchResult>> SearchProducts(string searchText, int page);
     }

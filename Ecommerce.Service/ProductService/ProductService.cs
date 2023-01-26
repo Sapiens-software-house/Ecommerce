@@ -55,6 +55,18 @@ namespace Ecommerce.Service.ProductService
             return new ServiceResponse<bool> { Data = true };
         }
 
+        public async Task<ServiceResponse<List<Product>>> GetProductsAsync()
+        {
+            var products = await _unitOfWork.ProductRepository.GetAllAsync();
+
+            var response = new ServiceResponse<List<Product>>
+            {
+                Data = products.ToList()
+            };
+
+            return response;
+        }
+
         public async Task<ServiceResponse<Product>> GetProductAsync(int productId)
         {
             var response = new ServiceResponse<Product>();
