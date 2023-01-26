@@ -28,10 +28,10 @@ namespace Ecommerce.Infrastructure.Data
                 .HasKey(oi => new { oi.IdProduto });
             modelBuilder.Entity<Restriction>()
                 .HasKey(oi => new { oi.IdProduto });
-            modelBuilder.Entity<Requirement>()
-                .HasKey(oi => new { oi.IdProduto, oi.minimalId, oi.recommendedId });
             modelBuilder.Entity<Minimal>()
                 .HasKey(oi => new { oi.IdProduto });
+            modelBuilder.Entity<Requirement>()
+                .HasKey(oi => new { oi.IdProduto, oi.minimalId, oi.recommendedId });
             modelBuilder.Entity<Recommended>()
                 .HasKey(oi => new { oi.ProductId });
             modelBuilder.Entity<Video>()
@@ -50,8 +50,8 @@ namespace Ecommerce.Infrastructure.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<PriceLimit> PriceLimits { get; set; }
         public DbSet<Restriction> Restrictions { get; set; }
-        public DbSet<Requirement> Requirements { get; set; }
         public DbSet<Minimal> Minimal { get; set; }
+        public DbSet<Requirement> Requirements { get; set; }
         public DbSet<Recommended> Recommended { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Categories> Categories { get; set; }
@@ -59,6 +59,7 @@ namespace Ecommerce.Infrastructure.Data
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
     }
 }
