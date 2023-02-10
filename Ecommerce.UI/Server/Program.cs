@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+Ecommerce.UI.Server.Ioc.Ioc.IocHttp(builder.Services);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

@@ -37,13 +37,13 @@ namespace Ecommerce.Infrastructure.Data
             modelBuilder.Entity<Video>()
                 .HasKey(oi => new { oi.IdProduto });
             modelBuilder.Entity<Categories>()
-                .HasKey(oi => new { oi.ProductId });
+                .HasKey(oi => new { oi.IdProduto });
             modelBuilder.Entity<CartItem>()
                 .HasKey(ci => new { ci.UserId, ci.ProductId });
             modelBuilder.Entity<Order>()
                 .HasKey(oi => new { oi.productId, oi.UserId });
             modelBuilder.Entity<OrderItem>()
-                .HasKey(oi => new { oi.OrderId, oi.ProductId });
+                .HasKey(oi => new { oi.OrderId, oi.IdProduct });
         }
 
         public DbSet<Product> Products {get; set;}

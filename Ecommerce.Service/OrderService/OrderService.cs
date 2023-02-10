@@ -56,7 +56,7 @@ namespace Ecommerce.Service.OrderService
             orderToCheck.OrderItems.ForEach(item =>
             orderDetailsResponse.Products.Add(new OrderDetailsProductResponse
             {
-                ProductId = item.ProductId,
+                ProductId = item.IdProduct,
                 ImageUrl = item.Product.images.FirstOrDefault().url,
                 Quantity = item.Quantity,
                 Title = item.Product.name,
@@ -105,7 +105,7 @@ namespace Ecommerce.Service.OrderService
             var orderItems = new List<OrderItem>();
             products.ForEach(product => orderItems.Add(new OrderItem
             {
-                ProductId = Convert.ToInt32(product.ProductId),
+                IdProduct = Convert.ToInt32(product.ProductId),
                 Quantity = product.Quantity,
                 TotalPrice = product.Price * product.Quantity
             }));
