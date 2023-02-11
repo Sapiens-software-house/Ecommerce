@@ -33,7 +33,7 @@ namespace Ecommerce.Service.OrderService
         {
             var response = new ServiceResponse<OrderDetailsResponse>();
             var orderToCheck = new Order();
-            var order = await _unitOfWork.OrderRepository.FindAsync(o => o.UserId == _authService.GetUserId().ToString() && o.Id == orderId.ToString());
+            var order = await _unitOfWork.OrderRepository.FindAsync(o => o.UserId == _authService.GetUserId() && o.Id == orderId);
             if (order != null)
             {
                 orderToCheck = order.FirstOrDefault();
@@ -48,20 +48,20 @@ namespace Ecommerce.Service.OrderService
 
             var orderDetailsResponse = new OrderDetailsResponse
             {
-                OrderDate = (DateTime)orderToCheck.OrderDate,
+                //OrderDate = (DateTime)orderToCheck.OrderDate,
                 TotalPrice = Convert.ToDecimal(orderToCheck.maxPrice),
                 Products = new List<OrderDetailsProductResponse>()
             };
 
-            orderToCheck.OrderItems.ForEach(item =>
-            orderDetailsResponse.Products.Add(new OrderDetailsProductResponse
-            {
-                ProductId = item.IdProduct,
-                ImageUrl = item.Product.images.FirstOrDefault().url,
-                Quantity = item.Quantity,
-                Title = item.Product.name,
-                TotalPrice = item.TotalPrice
-            }));
+            //orderToCheck.OrderItem.ForEach(item =>
+            //orderDetailsResponse.Products.Add(new OrderDetailsProductResponse
+            //{
+            //    ProductId = item.IdProduct,
+            //    ImageUrl = item.Product.images.FirstOrDefault().url,
+            //    Quantity = item.Quantity,
+            //    Title = item.Product.name,
+            //    TotalPrice = item.TotalPrice
+            //}));
 
             response.Data = orderDetailsResponse;
 
@@ -72,7 +72,7 @@ namespace Ecommerce.Service.OrderService
         {
             var response = new ServiceResponse<List<OrderOverviewResponse>>();
             var ordersToCheck = new Order();
-            var orders = await _unitOfWork.OrderRepository.GetAllAsync(o => o.UserId == _authService.GetUserId().ToString());
+            var orders = await _unitOfWork.OrderRepository.GetAllAsync(o => o.UserId == _authService.GetUserId());
             
             var orderResponse = new List<OrderOverviewResponse>();
 
@@ -81,13 +81,13 @@ namespace Ecommerce.Service.OrderService
                 orderResponse.Add(new OrderOverviewResponse
                 {
                     Id = Convert.ToInt32(o.Id),
-                    OrderDate = (DateTime)o.OrderDate,
-                    TotalPrice = o.TotalPrice,
-                    Product = o.OrderItems.Count > 1 ?
-                        $"{o.OrderItems.First().Product.name} and" +
-                        $" {o.OrderItems.Count - 1} more..." :
-                        o.OrderItems.First().Product.name,
-                    ProductImageUrl = o.OrderItems.First().Product.images.FirstOrDefault().url
+                    //OrderDate = (DateTime)o.OrderDate,
+                    //TotalPrice = o.TotalPrice,
+                    //Product = o.OrderItem.Count > 1 ?
+                    //    $"{o.OrderItem.First().Product.name} and" +
+                    //    $" {o.OrderItem.Count - 1} more..." :
+                    //    o.OrderItem.First().Product.name,
+                    //ProductImageUrl = o.OrderItems.First().Product.images.FirstOrDefault().url
                 });
             }
 
@@ -105,17 +105,17 @@ namespace Ecommerce.Service.OrderService
             var orderItems = new List<OrderItem>();
             products.ForEach(product => orderItems.Add(new OrderItem
             {
-                IdProduct = Convert.ToInt32(product.ProductId),
+                IdProduct = product.ProductId,
                 Quantity = product.Quantity,
                 TotalPrice = product.Price * product.Quantity
             }));
 
             var order = new Order
             {
-                UserId = userId.ToString(),
-                OrderDate = DateTime.Now,
-                TotalPrice = totalPrice,
-                OrderItems = orderItems
+                //UserId = userId.ToString(),
+                //OrderDate = DateTime.Now,
+                //TotalPrice = totalPrice,
+                //OrderItems = orderItems
             };
 
             _unitOfWork.OrderRepository.Add(order);

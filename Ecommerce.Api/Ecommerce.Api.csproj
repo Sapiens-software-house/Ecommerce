@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Ecommerce.Ioc\Ecommerce.Ioc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

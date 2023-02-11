@@ -23,43 +23,43 @@ namespace Ecommerce.Infrastructure.Data
             modelBuilder.Entity<Product>()
                 .HasKey(oi => new { oi.id });
             modelBuilder.Entity<Image>()
-                .HasKey(oi => new { oi.IdProduto });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<PriceLimit>()
-                .HasKey(oi => new { oi.IdProduto });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<Restriction>()
-                .HasKey(oi => new { oi.IdProduto });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<Minimal>()
-                .HasKey(oi => new { oi.IdProduto });
-            modelBuilder.Entity<Requirement>()
-                .HasKey(oi => new { oi.IdProduto, oi.minimalId, oi.recommendedId });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<Recommended>()
-                .HasKey(oi => new { oi.ProductId });
+                .HasKey(oi => new { oi.Id });
+            modelBuilder.Entity<Requirement>()
+                .HasKey(oi => new { oi.Id });            
             modelBuilder.Entity<Video>()
-                .HasKey(oi => new { oi.IdProduto });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<Categories>()
-                .HasKey(oi => new { oi.IdProduto });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<CartItem>()
-                .HasKey(ci => new { ci.UserId, ci.ProductId });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<Order>()
-                .HasKey(oi => new { oi.productId, oi.UserId });
+                .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<OrderItem>()
-                .HasKey(oi => new { oi.OrderId, oi.IdProduct });
+                .HasKey(oi => new { oi.Id });
         }
 
-        public DbSet<Product> Products {get; set;}
-        public DbSet<Image> Images { get; set; }
-        public DbSet<PriceLimit> PriceLimits { get; set; }
-        public DbSet<Restriction> Restrictions { get; set; }
+        public DbSet<Product> Product {get; set;}
+        public DbSet<Image> Image { get; set; }
+        public DbSet<PriceLimit> PriceLimit { get; set; }
+        public DbSet<Restriction> Restriction { get; set; }
         public DbSet<Minimal> Minimal { get; set; }
-        public DbSet<Requirement> Requirements { get; set; }
         public DbSet<Recommended> Recommended { get; set; }
-        public DbSet<Video> Videos { get; set; }
+        public DbSet<Requirement> Requirement { get; set; }
+        public DbSet<Video> Video { get; set; }
         public DbSet<Categories> Categories { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Address> Address { get; set; }
 
     }
 }

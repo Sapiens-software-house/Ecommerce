@@ -9,7 +9,8 @@ namespace Ecommerce.UI.Shared.Product
     public class Image
     {
         public int Id { get; set; }
-        public int IdProduto { get; set; }
+        public string IdProduto { get; set; }
+        public Product Produto { get; set; }
         public string url { get; set; }
     }
 }

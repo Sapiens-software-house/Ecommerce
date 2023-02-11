@@ -8,6 +8,6 @@ namespace Ecommerce.UI.Shared.Product
 {
     public class Doc
     {
-        public Product products { get; set; }
+        public Product Product { get; set; }
     }
 }
