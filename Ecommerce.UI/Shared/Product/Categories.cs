@@ -9,7 +9,8 @@ namespace Ecommerce.UI.Shared.Product
     public class Categories
     {
         public int Id { get; set; } // Category identifier
-        public int IdProduto { get; set; }
+        public string IdProduto { get; set; }
+        public Product Produto { get; set; }
         public string name { get; set; } // Category name
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ecommerce.UI.Shared.Cart;
+using Ecommerce.UI.Shared.Orders;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -27,11 +29,17 @@ namespace Ecommerce.UI.Shared.Product
         public string developer { get; set; } // Developer name of product
         public string publisher { get; set; } // Publisher name of product
         public string platform { get; set; } // Platform eg. Steam, Origin, Uplay, GOG, Xbox, Apple, Gameforge, Oculus Rift, HTC Vive, PSN, Blizzard
+        public int priceLimitId { get; set; } // Price value possible to set while adding/updating offer. Higher than max or lower than min are not possible to use.            
         public PriceLimit priceLimit { get; set; } // Price value possible to set while adding/updating offer. Higher than max or lower than min are not possible to use.            
-        public Restriction restrictions { get; set; } // PEGI restrictions            
+        public int restrictionsId { get; set; } // Price value possible to set while adding/updating offer. Higher than max or lower than min are not possible to use.  
+        public Restriction restrictions { get; set; } // PEGI restrictions
+                                                      // 
+        public int requirementsId { get; set; }
         public Requirement requirements { get; set; } // Requirements
         public List<Video> videos { get; set; } // Videos            
         public List<Categories> categories { get; set; } // Categories
+        [NotMapped]
+        public List<CartItem> CartItem { get; set; } // Categories
 
         public bool Visible { get; set; } = true;
         public bool Deleted { get; set; } = false;

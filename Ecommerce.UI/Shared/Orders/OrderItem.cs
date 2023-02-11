@@ -13,7 +13,7 @@ namespace Ecommerce.UI.Shared.Orders
         public Order Order { get; set; }
         public int OrderId { get; set; }
         public Product.Product Product { get; set; }
-        public int IdProduct { get; set; }
+        public string IdProduct { get; set; }
         public int Quantity { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]

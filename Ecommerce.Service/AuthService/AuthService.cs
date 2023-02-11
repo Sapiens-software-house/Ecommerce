@@ -1,21 +1,9 @@
-﻿using Ecommerce.Infrastructure.Data;
+﻿using Ecommerce.Interface.IAuthService;
 using Ecommerce.Interface.IUnitOfWork;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Data.Entity;
 using Ecommerce.UI.Shared.ServiceResponse;
 using Ecommerce.UI.Shared.User;
-using Ecommerce.Interface.IAuthService;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -59,7 +47,7 @@ namespace Ecommerce.Service.AuthService
             user.PasswordSalt = passwordSalt;
 
             _unitOfWork.UserRepository.Add(user);
-            _unitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync();
 
             return new ServiceResponse<int> { Data = user.Id, Message = "Registration successful!" };
         }

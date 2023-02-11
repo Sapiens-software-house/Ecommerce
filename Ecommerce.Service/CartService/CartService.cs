@@ -146,7 +146,7 @@ namespace Ecommerce.Service.CartService
         {
             var dbCartItemToCheck = new CartItem();
             var dbCartItem = await _unitOfWork.CartItemRepository
-                .FindAsync(ci => ci.ProductId == productId &&
+                .FindAsync(ci => ci.ProductId == productId.ToString() &&
                 ci.UserId == _authService.GetUserId());
 
             if (dbCartItem == null)

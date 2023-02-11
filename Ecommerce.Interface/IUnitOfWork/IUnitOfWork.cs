@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Interface.IOrderReposiotry;
 using Ecommerce.Interface.IProductRepository;
+using Ecommerce.Interface.IUserRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Ecommerce.Interface.IUnitOfWork
 {
     public interface IUnitOfWork: IDisposable
-    {
+    {        
         IImageRepository ImageRepository
         {
             get;
@@ -42,28 +43,14 @@ namespace Ecommerce.Interface.IUnitOfWork
         {
             get;
         }
-        IUserRepository.IUserRepository UserRepository
-        {
-            get;
-        }
-        IAddressRepository.IAddressRepository AddressRepository
-        {
-            get;
-        }
-        IOrderRepository OrderRepository
-        {
-            get;
-        }
-        IOrderItemRepository.IOrderItemRepository OrderItemRepository
-        {
-            get;
-        }
-        ICartItemRepository.ICartItemRepository CartItemRepository
-        {
-            get;
-        }
+        IUserRepository.IUserRepository UserRepository { get; }
+        IAddressRepository.IAddressRepository AddressRepository { get; }
+        ICartItemRepository.ICartItemRepository CartItemRepository { get; }
+        IOrderRepository OrderRepository { get; }
+        IOrderItemRepository.IOrderItemRepository OrderItemRepository { get; }
 
-        int Save();
+        void Dispose();
         Task<int> SaveAsync();
+        int Save();
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ecommerce.UI.Shared.Cart;
+using Ecommerce.UI.Shared.Orders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +15,9 @@ namespace Ecommerce.UI.Shared.User
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        public Address Address { get; set; }
+        public List<Address> Address { get; set; }
+        public List<CartItem> CartItem { get; set; }
+        public List<Order> Order { get; set; }
         public string Role { get; set; } = "Customer";
     }
 }

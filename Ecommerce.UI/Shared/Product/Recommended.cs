@@ -8,8 +8,9 @@ namespace Ecommerce.UI.Shared.Product
 {
     public class Recommended
     {
-        public int Id { get; set; }
-        public string ProductId { get; set; }    
+        public int Id { get; set; } // Id
+        public int IdRequirement { get; set; } // Processor
+        public Requirement Requirement { get; set; } // Processor
         public string reqprocessor { get; set; } // Processor
         public string reqgraphics { get; set; } // Graphics
         public string reqmemory { get; set; } // Memory
