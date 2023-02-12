@@ -1,4 +1,5 @@
-﻿using Ecommerce.Infrastructure.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repository;
 using Ecommerce.Interface.IProductRepository;
 using Ecommerce.Interface.Repository;
 using Ecommerce.UI.Shared.Product;
@@ -13,6 +14,6 @@ namespace Ecommerce.Interface.ProductRepository
 {
     public class CategoriesRepository : Repository<Categories>, ICategoriesRepository
     {
-        public CategoriesRepository(DbContext context): base(context){}
+        public CategoriesRepository(DataContext context): base(context){}
     }
 }

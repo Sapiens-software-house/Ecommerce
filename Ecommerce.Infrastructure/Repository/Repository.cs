@@ -1,4 +1,5 @@
-﻿using Ecommerce.Interface.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Interface.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace Ecommerce.Infrastructure.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly DbContext context;
+        protected readonly DataContext context;
 
-        public Repository(DbContext context) {
+        public Repository(DataContext context) {
 
             this.context = context;
         }

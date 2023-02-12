@@ -1,4 +1,5 @@
-﻿using Ecommerce.Infrastructure.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repository;
 using Ecommerce.Interface.IProductRepository;
 using Ecommerce.Interface.Repository;
 using Ecommerce.UI.Shared.Product;
@@ -13,6 +14,6 @@ namespace Ecommerce.Interface.IroductRepository
 {
     public class RequirementRepository : Repository<Requirement>, IRequirementRepository
     {
-        public RequirementRepository(DbContext context) : base(context) { }
+        public RequirementRepository(DataContext context) : base(context) { }
     }
 }

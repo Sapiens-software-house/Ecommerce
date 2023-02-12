@@ -1,4 +1,5 @@
-﻿using Ecommerce.Infrastructure.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repository;
 using Ecommerce.Interface.IProductRepository;
 using Ecommerce.Interface.IUserRepository;
 using Ecommerce.UI.Shared.User;
@@ -13,11 +14,20 @@ namespace Ecommerce.Infrastructure.UserRepository
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
-        public UserRepository(DbContext context) : base(context) { }
+        public UserRepository(DataContext context) : base(context) { }
 
         public async Task<bool> ExistsByEmail(string email)
         {
-            return await context.Set<User>().AnyAsync(e => e.Email == email);
+            var bAux = false;
+            try
+            {
+                bAux = await context.Set<User>().AnyAsync(e => e.Email == email);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return bAux;
         }
     }
 }
