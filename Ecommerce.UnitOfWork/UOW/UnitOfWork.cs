@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Infrastructure.AddressRepository;
 using Ecommerce.Infrastructure.CartItemRepository;
+using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.OrderRepository;
 using Ecommerce.Infrastructure.UserRepository;
 using Ecommerce.Interface.IAddressRepository;
@@ -23,8 +24,8 @@ namespace Ecommerce.UnitOfWork.UOW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContext context;
-        public UnitOfWork(DbContext context)
+        private DataContext context;
+        public UnitOfWork(DataContext context)
         {
             this.context = context;
             ImageRepository = new ImageRepository(this.context);

@@ -1,4 +1,5 @@
-﻿using Ecommerce.Infrastructure.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repository;
 using Ecommerce.Interface.IOrderReposiotry;
 using Ecommerce.UI.Shared.Orders;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace Ecommerce.Infrastructure.OrderRepository
 {
     public class OrderRepository : Repository<Order>, IOrderRepository
     {
-        public OrderRepository(DbContext context) : base(context)
+        public OrderRepository(DataContext context) : base(context)
         {
         }
     }

@@ -1,4 +1,5 @@
-﻿using Ecommerce.Infrastructure.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repository;
 using Ecommerce.Interface.IProductRepository;
 using Ecommerce.Interface.Repository;
 using Ecommerce.UI.Shared.Product;
@@ -13,6 +14,6 @@ namespace Ecommerce.Interface.ProductRepository
 {
     public class RestrictionRepository : Repository<Restriction>, IRestrictionRepository
     {
-        public RestrictionRepository(DbContext context) : base(context) { }
+        public RestrictionRepository(DataContext context) : base(context) { }
     }
 }

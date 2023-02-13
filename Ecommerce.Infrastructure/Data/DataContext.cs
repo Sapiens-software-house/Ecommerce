@@ -44,6 +44,8 @@ namespace Ecommerce.Infrastructure.Data
                 .HasKey(oi => new { oi.Id });
             modelBuilder.Entity<OrderItem>()
                 .HasKey(oi => new { oi.Id });
+            modelBuilder.Entity<User>()
+                .HasKey(oi => new { oi.Id });
         }
 
         public DbSet<Product> Product {get; set;}

@@ -1,4 +1,5 @@
-﻿using Ecommerce.Infrastructure.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repository;
 using Ecommerce.Interface.ICartItemRepository;
 using Ecommerce.UI.Shared.Cart;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,6 @@ namespace Ecommerce.Infrastructure.CartItemRepository
 {
     public class CartItemRepository : Repository<CartItem>, ICartItemRepository
     {
-        public CartItemRepository(DbContext context) : base(context) { }
+        public CartItemRepository(DataContext context) : base(context) { }
     }
 }

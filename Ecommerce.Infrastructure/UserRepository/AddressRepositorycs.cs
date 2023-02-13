@@ -1,4 +1,5 @@
-﻿using Ecommerce.Infrastructure.Repository;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repository;
 using Ecommerce.Interface.IAddressRepository;
 using Ecommerce.Interface.IUserRepository;
 using Ecommerce.UI.Shared.User;
@@ -13,6 +14,6 @@ namespace Ecommerce.Infrastructure.AddressRepository
 {
     public class AddressRepository : Repository<Address>, IAddressRepository
     {
-        public AddressRepository(DbContext context) : base(context) { }
+        public AddressRepository(DataContext context) : base(context) { }
     }
 }

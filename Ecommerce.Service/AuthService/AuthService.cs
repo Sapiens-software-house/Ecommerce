@@ -63,7 +63,7 @@ namespace Ecommerce.Service.AuthService
             {
                 userToCheck = user.FirstOrDefault();
             }
-            if (user == null)
+            else if (user == null)
             {
                 response.Success = false;
                 response.Message = "User not found.";
