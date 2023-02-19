@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using Ecommerce.UI.Shared.Authentication;
-using Ecommerce.UI.Server.Interface.IAuthentication;
+using Ecommerce.UI.Server.Interface.IG2aAuthentication;
 
 namespace Ecommerce.UI.Server.Service
 {
@@ -38,6 +38,8 @@ namespace Ecommerce.UI.Server.Service
                 {
                     _accessToken = await _authentication.RefreshToken(_accessToken.Token);
                 }
+
+
 
             }
             catch (Exception)
