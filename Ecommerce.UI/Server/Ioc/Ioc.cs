@@ -1,5 +1,5 @@
 ﻿using Ecommerce.UI.Server.Interface;
-using Ecommerce.UI.Server.Interface.IAuthentication;
+using Ecommerce.UI.Server.Interface.IG2aAuthentication;
 using Ecommerce.UI.Server.Service;
 using Ecommerce.UI.Server.Share;
 
