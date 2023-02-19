@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Ecommerce.UI.Shared.Product
@@ -11,13 +12,29 @@ namespace Ecommerce.UI.Shared.Product
         public int Id { get; set; }
         public string IdProduto { get; set; }
         public Product Produto { get; set; }
-        public bool? pegi_violence { get; set; } // Violence
-        public bool? pegi_profanity { get; set; } // Profanity
-        public bool? pegi_discrimination { get; set; } // Discrimination
-        public bool? pegi_drugs { get; set; } // Drugs
-        public bool? pegi_fear { get; set; } // Fear
-        public bool? pegi_gambling { get; set; } // Gambling
-        public bool? pegi_online { get; set; } // Online
-        public bool? pegi_sex { get; set; } // Sex
+
+        [JsonPropertyName("pegi_violence")]
+        public bool? PegiViolence { get; set; }
+
+        [JsonPropertyName("pegi_profanity")]
+        public bool? PegiProfanity { get; set; }
+
+        [JsonPropertyName("pegi_discrimination")]
+        public bool? PegiDiscrimination { get; set; }
+
+        [JsonPropertyName("pegi_drugs")]
+        public bool? PegiDrugs { get; set; }
+
+        [JsonPropertyName("pegi_fear")]
+        public bool? PegiFear { get; set; }
+
+        [JsonPropertyName("pegi_gambling")]
+        public bool? PegiGambling { get; set; }
+
+        [JsonPropertyName("pegi_online")]
+        public bool? PegiOnline { get; set; }
+
+        [JsonPropertyName("pegi_sex")]
+        public bool? PegiSex { get; set; }
     }
 }

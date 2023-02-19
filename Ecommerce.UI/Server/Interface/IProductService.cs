@@ -1,11 +1,10 @@
-﻿using Ecommerce.UI.Shared.ServiceResponse;
-using Ecommerce.UI.Shared.User;
-using Microsoft.AspNetCore.Mvc;
+﻿using Ecommerce.UI.Shared.Model.DocModel;
+using Ecommerce.UI.Shared.ServiceResponse;
 
 namespace Ecommerce.UI.Server.Interface
 {
     public interface IProductService
     {
-        Task<string> GetProductFrom();
+        Task<ServiceResponse<docs>> GetProductFrom();
     }
 }

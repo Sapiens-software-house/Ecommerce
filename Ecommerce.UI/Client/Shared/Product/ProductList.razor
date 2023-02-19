@@ -1,30 +1,30 @@
 ﻿@inject Ecommerce.UI.Client.Interface.IProductService.IProductService ProductService
 @implements IDisposable
 
-@if (ProductService.Products == null || ProductService.Products.Count == 0)
+@if (ProductService.Products == null || ProductService.Products.Products.Count == 0)
 {
     <span>@ProductService.Message</span>
 }
 else
 {
     <lu class="list-unstyled">
-        @foreach (var item in ProductService.Products)
+        @foreach (var item in ProductService.Products.Products)
         {
             <li>
-                @foreach (var itemImg in @item.images)
+                @foreach (var itemImg in @item.Images)
                 {
                     <div>
                         <a href="#">
-                            <img class="img-fluid rounded mx-auto d-block" src="@itemImg.url" alt="@item.slug" />
+                            <img class="img-fluid rounded mx-auto d-block" src="@itemImg" alt="@item.Slug" />
                         </a>
                     </div>
                 }
                 <div>
                     <a href="#">
-                        <h4 class="mb-0">@item.slug</h4>
+                        <h4 class="mb-0">@item.Slug</h4>
                     </a>
-                    <p>@item.slug </p>
-                    <h5 class="price">$@item.minQty </h5>
+                    <p>@item.Slug </p>
+                    <h5 class="price">$@item.Quantity </h5>
                 </div>
             </li>
         }

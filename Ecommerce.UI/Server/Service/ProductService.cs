@@ -10,6 +10,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Ecommerce.UI.Shared.Authentication;
 using Ecommerce.UI.Server.Interface.IG2aAuthentication;
+using System.Text.Json;
+using Ecommerce.UI.Shared.Model.DocModel;
 
 namespace Ecommerce.UI.Server.Service
 {
@@ -28,8 +30,10 @@ namespace Ecommerce.UI.Server.Service
             _accessToken = new AccessToken();
         }
 
-        public async Task<string> GetProductFrom()
+        public async Task<ServiceResponse<docs>> GetProductFrom()
         {
+            docs aux = new docs();
+
             try
             {
                 _accessToken = await _authentication.GetToken();
@@ -39,7 +43,22 @@ namespace Ecommerce.UI.Server.Service
                     _accessToken = await _authentication.RefreshToken(_accessToken.Token);
                 }
 
+                string APIURL = $"products";
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(_accessToken.TokenType, _accessToken.Token);
+                var response = await _httpClient.GetAsync(APIURL);
 
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Failed to retrieve products");
+                    //return;
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                aux = JsonSerializer.Deserialize<docs>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
 
             }
             catch (Exception)
@@ -48,7 +67,12 @@ namespace Ecommerce.UI.Server.Service
                 throw;
             }
 
-            return "";
+            var serviceresponse = new ServiceResponse<docs>
+            {
+                Data = aux
+            };
+
+            return serviceresponse;
         }
     }
 }

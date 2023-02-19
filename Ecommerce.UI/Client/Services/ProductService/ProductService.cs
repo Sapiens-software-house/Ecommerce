@@ -1,4 +1,5 @@
 ﻿using Ecommerce.UI.Client.Interface.IProductService;
+using Ecommerce.UI.Shared.Model.DocModel;
 using Ecommerce.UI.Shared.Product;
 using Ecommerce.UI.Shared.ServiceResponse;
 using System.Net.Http.Json;
@@ -15,7 +16,7 @@ namespace Ecommerce.UI.Client.Services.ProductService
             _http = http;
         }
 
-        public List<Product> Products { get; set; } = new List<Product>();
+        public docs Products { get; set; } = new docs();
         public string Message { get; set; } = "Loading products...";
         public int CurrentPage { get; set; } = 1;
         public int PageCount { get; set; } = 0;
@@ -26,15 +27,16 @@ namespace Ecommerce.UI.Client.Services.ProductService
         public async Task GetProducts(string? categoryUrl = null)
         {
             var result = categoryUrl == null ?
-                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/GetProductsFromHell") :
-                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/product/GetProductsFromHell");
+                await _http.GetFromJsonAsync<ServiceResponse<docs>>("api/product/GetProductsFromHell") 
+                :
+                await _http.GetFromJsonAsync<ServiceResponse<docs>>($"api/product/GetProductsFromHell");
             if (result != null && result.Data != null)
                 Products = result.Data;
 
             CurrentPage = 1;
             PageCount = 0;
 
-            if (Products.Count == 0)
+            if (Products.Products.Count == 0)
                 Message = "No products found";
 
             ProductsChanged.Invoke();

@@ -1,4 +1,6 @@
 ﻿using Ecommerce.UI.Server.Interface;
+using Ecommerce.UI.Shared.Model.DocModel;
+using Ecommerce.UI.Shared.ServiceResponse;
 using Ecommerce.UI.Shared.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,7 @@ namespace Ecommerce.UI.Server.Controllers
         }
 
         [HttpGet("GetProductsFromHell")]
-        public async Task<string> GetProductsFromHell()
+        public async Task<ServiceResponse<docs>> GetProductsFromHell()
         {
             return await _productService.GetProductFrom();
         }
