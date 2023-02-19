@@ -1,4 +1,5 @@
-﻿using Ecommerce.Interface.IProductService;
+﻿using Ecommerce.UI.Server.Interface;
+using Ecommerce.UI.Shared.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,12 @@ namespace Ecommerce.UI.Server.Controllers
         public ProductController(IProductService productService)
         {
             this._productService = productService;  
+        }
+
+        [HttpGet("GetProductsFromHell")]
+        public async Task<string> GetProductsFromHell()
+        {
+            return await _productService.GetProductFrom();
         }
     }
 }
