@@ -1,4 +1,5 @@
-﻿using Ecommerce.UI.Shared.Product;
+﻿using Ecommerce.UI.Shared.Model.DocModel;
+using Ecommerce.UI.Shared.Product;
 
 namespace Ecommerce.UI.Client.Interface.IProductService
 {
@@ -8,7 +9,7 @@ namespace Ecommerce.UI.Client.Interface.IProductService
         string Message { get; set; }
         int CurrentPage { get; set; }
         int PageCount { get; set; }
-        List<Product> Products { get; set; }
+        docs Products { get; set; }
         Task GetProducts(string? categoryUrl = null);
     }
 }
