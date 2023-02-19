@@ -1,5 +1,4 @@
 ﻿using Ecommerce.UI.Server.Interface;
-using Ecommerce.UI.Shared.ServiceResponse;
 using Ecommerce.UI.Shared.User;
 using Microsoft.AspNetCore.Mvc;
 

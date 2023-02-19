@@ -1,150 +1,169 @@
-﻿<h3>ProductList</h3>
+﻿@inject Ecommerce.UI.Client.Interface.IProductService.IProductService ProductService
+@implements IDisposable
 
-<lu class="list-unstyled">
-    @foreach (var item in Products)
-    {
-        <li>
-            @foreach (var itemImg in @item.images)
-            {
+@if (ProductService.Products == null || ProductService.Products.Count == 0)
+{
+    <span>@ProductService.Message</span>
+}
+else
+{
+    <lu class="list-unstyled">
+        @foreach (var item in ProductService.Products)
+        {
+            <li>
+                @foreach (var itemImg in @item.images)
+                {
+                    <div>
+                        <a href="#">
+                            <img class="img-fluid rounded mx-auto d-block" src="@itemImg.url" alt="@item.slug" />
+                        </a>
+                    </div>
+                }
                 <div>
                     <a href="#">
-                        <img class="img-fluid rounded mx-auto d-block" src="@itemImg.url" alt="@item.slug" />
+                        <h4 class="mb-0">@item.slug</h4>
                     </a>
+                    <p>@item.slug </p>
+                    <h5 class="price">$@item.minQty </h5>
                 </div>
-            }       
-            <div>
-                <a href="#">
-                    <h4 class="mb-0">@item.slug</h4>
-                </a>
-                <p>@item.slug </p>
-                <h5 class="price">$@item.minQty </h5>
-            </div>
-        </li>
-    }
-</lu>
+            </li>
+        }
+    </lu>
+}
 
 @code {
 
-    private static List<Product> Products = new List<Product>
+    protected override void OnInitialized()
     {
-        new Product
-        {
-            id  =  "" // Id of product
-            ,
-            name = "" // Name of product
-            ,
-            type = "" // Type of product, currently it is always key
-            ,
-            slug = ""  // Slug of product
-            ,
-            qty = ""// Qty of product available to buy
-            ,
-            minQty = 1// Minimum product quantity available to buy
-            ,
-            retail_min_price = 1 // minimal product price for retail users in EUR with fees.
-            ,
-            retailMinBasePrice = 1 // minimal product price for retail users in EUR without fees. Price set by seller while adding offer.
-            ,
-            thumbnail = ""// Url to image
-            ,
-            smallImage = "" // Url to thumbnail image
-            ,
-            coverImage = "" // Url to cover image
-            ,images = new List<Image>
-            {
-                new Image
-                {
-                    url = "https://images.g2a.com/1024x768/1x1x0/marvels-spider-man-remastered-pc-steam-key-global-i10000302546004/799cf76f63324301a0b19a4a"
-                }
-            }// Url list to all images in full resolution
-            ,
-            updated_at = "" // 	date of last update
-            ,
-            release_date = "" // Product release date
-            ,
-            region = ""// Region of product eg. GLOBAL, EUROPE, AMERICA, NORTH AMERICA, RU/CIS, SOUTH EASTERN ASIA, WESTERN ASIA, GERMANY, INDIA, POLAND, UNITED KINGDOM etc.
-            ,
-            developer = ""// Developer name of product
-            ,
-            publisher = "" // Publisher name of product
-            ,
-            platform = "" // Platform eg. Steam, Origin, Uplay, GOG, Xbox, Apple, Gameforge, Oculus Rift, HTC Vive, PSN, Blizzard
-            ,priceLimit = new PriceLimit
-            {
-                mim = 1
-                ,
-                max = 1
-            }  // Price value possible to set while adding/updating offer. Higher than max or lower than min are not possible to use.
-           ,restrictions = new Restriction
-           {
-                pegi_discrimination = false
-                ,
-                pegi_drugs = false
-                ,
-                pegi_fear = false
-                ,
-                pegi_gambling = false
-                ,
-                pegi_online = false
-                ,
-                pegi_sex = false
-                ,
-                pegi_profanity = false
-                ,
-                pegi_violence = false
-           }  // PEGI restrictions
-           ,requirements = new Requirement
-           {
-                Minimal = 
-                    new Minimal
-                    {
-                        reqdiskspace = ""
-                        ,
-                        reqgraphics = ""
-                        ,
-                        reqmemory = ""
-                        ,
-                        reqother = ""
-                        ,
-                        reqprocessor = ""
-                        ,
-                        reqsystem = ""
-                    }
+        ProductService.ProductsChanged += StateHasChanged;
+        ProductService.GetProducts();
+    }
 
-                , Recommended = 
-                    new Recommended
-                    {
-                        reqdiskspace = ""
-                        ,
-                        reqgraphics = ""
-                        ,
-                        reqmemory = ""
-                        ,
-                        reqother = ""
-                        ,
-                        reqprocessor = ""
-                        ,
-                        reqsystem = ""
-                    }
+    public void Dispose()
+    {
+        ProductService.ProductsChanged -= StateHasChanged;
+    }
+
+    //private static List<Product> Products = new List<Product>
+    //{
+    //    new Product
+    //    {
+    //        id  =  "" // Id of product
+    //        ,
+    //        name = "" // Name of product
+    //        ,
+    //        type = "" // Type of product, currently it is always key
+    //        ,
+    //        slug = ""  // Slug of product
+    //        ,
+    //        qty = ""// Qty of product available to buy
+    //        ,
+    //        minQty = 1// Minimum product quantity available to buy
+    //        ,
+    //        retail_min_price = 1 // minimal product price for retail users in EUR with fees.
+    //        ,
+    //        retailMinBasePrice = 1 // minimal product price for retail users in EUR without fees. Price set by seller while adding offer.
+    //        ,
+    //        thumbnail = ""// Url to image
+    //        ,
+    //        smallImage = "" // Url to thumbnail image
+    //        ,
+    //        coverImage = "" // Url to cover image
+    //        ,images = new List<Image>
+    //        {
+    //            new Image
+    //            {
+    //                url = "https://images.g2a.com/1024x768/1x1x0/marvels-spider-man-remastered-pc-steam-key-global-i10000302546004/799cf76f63324301a0b19a4a"
+    //            }
+    //        }// Url list to all images in full resolution
+    //        ,
+    //        updated_at = "" // 	date of last update
+    //        ,
+    //        release_date = "" // Product release date
+    //        ,
+    //        region = ""// Region of product eg. GLOBAL, EUROPE, AMERICA, NORTH AMERICA, RU/CIS, SOUTH EASTERN ASIA, WESTERN ASIA, GERMANY, INDIA, POLAND, UNITED KINGDOM etc.
+    //        ,
+    //        developer = ""// Developer name of product
+    //        ,
+    //        publisher = "" // Publisher name of product
+    //        ,
+    //        platform = "" // Platform eg. Steam, Origin, Uplay, GOG, Xbox, Apple, Gameforge, Oculus Rift, HTC Vive, PSN, Blizzard
+    //        ,priceLimit = new PriceLimit
+    //        {
+    //            mim = 1
+    //            ,
+    //            max = 1
+    //        }  // Price value possible to set while adding/updating offer. Higher than max or lower than min are not possible to use.
+    //       ,restrictions = new Restriction
+    //       {
+    //            pegi_discrimination = false
+    //            ,
+    //            pegi_drugs = false
+    //            ,
+    //            pegi_fear = false
+    //            ,
+    //            pegi_gambling = false
+    //            ,
+    //            pegi_online = false
+    //            ,
+    //            pegi_sex = false
+    //            ,
+    //            pegi_profanity = false
+    //            ,
+    //            pegi_violence = false
+    //       }  // PEGI restrictions
+    //       ,requirements = new Requirement
+    //       {
+    //            Minimal = 
+    //                new Minimal
+    //                {
+    //                    reqdiskspace = ""
+    //                    ,
+    //                    reqgraphics = ""
+    //                    ,
+    //                    reqmemory = ""
+    //                    ,
+    //                    reqother = ""
+    //                    ,
+    //                    reqprocessor = ""
+    //                    ,
+    //                    reqsystem = ""
+    //                }
+
+    //            , Recommended = 
+    //                new Recommended
+    //                {
+    //                    reqdiskspace = ""
+    //                    ,
+    //                    reqgraphics = ""
+    //                    ,
+    //                    reqmemory = ""
+    //                    ,
+    //                    reqother = ""
+    //                    ,
+    //                    reqprocessor = ""
+    //                    ,
+    //                    reqsystem = ""
+    //                }
                 
-           }// Requirements
-           ,videos = new List<Video>
-           {
-               new Video
-               {
-                    type = ""
-                    , url = ""
-               }
-               ,
-           } // Videos
-           ,categories = new List<Categories>
-           {
-                new Categories
-               {
-                    Id = 0
-                    , name = ""
-               }
-           }  // Categories
-        }
-    };
+    //       }// Requirements
+    //       ,videos = new List<Video>
+    //       {
+    //           new Video
+    //           {
+    //                type = ""
+    //                , url = ""
+    //           }
+    //           ,
+    //       } // Videos
+    //       ,categories = new List<Categories>
+    //       {
+    //            new Categories
+    //           {
+    //                Id = 0
+    //                , name = ""
+    //           }
+    //       }  // Categories
+    //    }
+    //};
 }
