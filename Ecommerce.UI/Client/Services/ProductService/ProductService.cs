@@ -22,14 +22,14 @@ namespace Ecommerce.UI.Client.Services.ProductService
         public int PageCount { get; set; } = 0;
         public string LastSearchText { get; set; } = string.Empty;
 
-        public event Action ProductsChanged;
+        public event Action? ProductsChanged;
 
         public async Task GetProducts(string? categoryUrl = null)
         {
             var result = categoryUrl == null ?
-                await _http.GetFromJsonAsync<ServiceResponse<docs>>($"api/product/GetProductsFromHell") 
+                await _http.GetFromJsonAsync<ServiceResponse<docs>>($"/GetProductsFromHell") 
                 :
-                await _http.GetFromJsonAsync<ServiceResponse<docs>>($"api/product/GetProductsFromHell");
+                await _http.GetFromJsonAsync<ServiceResponse<docs>>($"/GetProductsFromHell");
             if (result != null && result.Data != null)
                 Products = result.Data;
 
@@ -39,7 +39,7 @@ namespace Ecommerce.UI.Client.Services.ProductService
             if (Products.Products.Count == 0)
                 Message = "No products found";
 
-            ProductsChanged.Invoke();
+            ProductsChanged?.Invoke();
         }
     }
 }

@@ -16,6 +16,6 @@ namespace Ecommerce.UI.Shared.Model.DocModel
         public int Page { get; set; }
 
         [JsonPropertyName("docs")]
-        public List<product> Products { get; set; }
+        public List<product> Products { get; set; } = new List<product>();
     }
 }
