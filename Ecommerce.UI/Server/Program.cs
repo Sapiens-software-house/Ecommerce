@@ -1,12 +1,14 @@
 global using Ecommerce.UI.Shared.Product;
 using Ecommerce.Infrastructure.Data;
+using Ecommerce.UI.Server.Ioc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-Ecommerce.UI.Server.Ioc.Ioc.IocHttp(builder.Services);
+Ecommerce.UI.Server.Ioc.Injection.Ioc.IocService(builder.Services);
+Ioc.IocHttp(builder.Services);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
