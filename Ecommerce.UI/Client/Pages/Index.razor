@@ -1,5 +1,14 @@
 ﻿@page "/"
+@inject IProductService ProductService
 
 <PageTitle>My shop</PageTitle>
 
 <ProductList />
+
+@code{
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ProductService.GetProducts();
+    }
+}

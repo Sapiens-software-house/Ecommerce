@@ -5,7 +5,7 @@ namespace Ecommerce.UI.Client.Interface.IProductService
 {
     public interface IProductService
     {
-        event Action ProductsChanged;
+        event Action? ProductsChanged;
         string Message { get; set; }
         int CurrentPage { get; set; }
         int PageCount { get; set; }

@@ -1,5 +1,5 @@
 ﻿
-@inject Ecommerce.UI.Client.Interface.IProductService.IProductService ProductService
+@inject IProductService ProductService
 @implements IDisposable
 
 @if (ProductService.Products == null || ProductService.Products.Products.Count == 0)
@@ -37,7 +37,6 @@ else
     protected override void OnInitialized()
     {
         ProductService.ProductsChanged += StateHasChanged;
-        ProductService.GetProducts();
     }
 
     public void Dispose()
