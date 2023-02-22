@@ -9,7 +9,7 @@ namespace Ecommerce.UI.Server.Ioc.Injection
     {
         public static void IocService(IServiceCollection services)
         {
-            services.AddScoped<IProductService, ProductService>();
+            //services.AddScoped<IProductService, ProductService>();
         }
     }
 }
