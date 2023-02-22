@@ -36,6 +36,7 @@ else
 
     protected override void OnInitialized()
     {
+        ProductService.GetProducts();
         ProductService.ProductsChanged += StateHasChanged;
     }
 

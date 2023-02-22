@@ -15,9 +15,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 Ecommerce.UI.Server.Ioc.Injection.Ioc.IocService(builder.Services);
 Ioc.IocHttp(builder.Services);
-Authentication.AuthenticationOn(builder, builder.Services);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+Authentication.AuthenticationOn(builder, builder.Services);
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin();  //set the allowed origin  
+        });
+});
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
@@ -42,7 +50,7 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
