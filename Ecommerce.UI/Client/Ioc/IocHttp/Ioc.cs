@@ -10,7 +10,7 @@ namespace Ecommerce.UI.Client.Ioc.IocHttp
 {
     public class Ioc
     {
-        public static void IocHttp(WebAssemblyHostBuilder builder, IServiceCollection services)
+        public static void IocHttp(IServiceCollection services)
         {
             services.AddHttpClient<IAuthService, AuthService>(c =>
             {
