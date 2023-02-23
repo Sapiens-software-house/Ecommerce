@@ -1,5 +1,4 @@
-﻿
-@inject IProductService ProductService
+﻿@inject IProductService ProductService
 @implements IDisposable
 
 @if (ProductService.Products == null || ProductService.Products.Products.Count == 0)
@@ -8,31 +7,29 @@
 }
 else
 {
-    <lu class="list-unstyled">
-        @foreach (var item in ProductService.Products.Products)
-        {
-            <li>
-                @foreach (var itemImg in @item.Images)
-                {
-                    <div>
-                        <a href="#">
-                            <img class="img-fluid rounded mx-auto d-block" src="@itemImg" alt="@item.Slug" />
-                        </a>
-                    </div>
-                }
-                <div>
-                    <a href="#">
-                        <h4 class="mb-0">@item.Slug</h4>
-                    </a>
-                    <p>@item.Slug </p>
-                    <h5 class="price">$@item.Quantity </h5>
-                </div>
-            </li>
-        }
-    </lu>
+    @foreach (var item in ProductService.Products.Products)
+    {
+        <MudPaper Class="pa-4 ma-2 responsive d-inline-block" Elevation="5" Style="height:5%; width:20%; display: inline-block;">
+            <MudCard Class="responsive">
+                <MudCardContent Class="responsive">
+                    <img class="responsive" src="@item.Images[0]" alt="teste">
+                    <MudText Class="responsive" Typo="Typo.body2">@item.Name</MudText>
+                </MudCardContent>
+                <MudCardActions Class="responsive">
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Details</MudButton>
+                </MudCardActions>
+            </MudCard>
+         </MudPaper>
+    }
 }
 
 @code {
+
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
 
     protected override void OnInitialized()
     {
@@ -45,6 +42,7 @@ else
         ProductService.ProductsChanged -= StateHasChanged;
     }
 
+    #region mapper
     //private static List<Product> Products = new List<Product>
     //{
     //    new Product
@@ -115,7 +113,7 @@ else
     //       }  // PEGI restrictions
     //       ,requirements = new Requirement
     //       {
-    //            Minimal = 
+    //            Minimal =
     //                new Minimal
     //                {
     //                    reqdiskspace = ""
@@ -131,7 +129,7 @@ else
     //                    reqsystem = ""
     //                }
 
-    //            , Recommended = 
+    //            , Recommended =
     //                new Recommended
     //                {
     //                    reqdiskspace = ""
@@ -146,7 +144,7 @@ else
     //                    ,
     //                    reqsystem = ""
     //                }
-                
+
     //       }// Requirements
     //       ,videos = new List<Video>
     //       {
@@ -167,4 +165,5 @@ else
     //       }  // Categories
     //    }
     //};
+    #endregion    
 }

@@ -13,13 +13,12 @@ using MudBlazor.Services;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+builder.Services.AddMudServices();
 
 builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddMudServices();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 Ioc.IocHttp(builder.Services);
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8082/") });
 
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
