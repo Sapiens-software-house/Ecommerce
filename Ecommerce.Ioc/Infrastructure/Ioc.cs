@@ -1,5 +1,8 @@
-﻿using Ecommerce.Interface.IUnitOfWork;
+﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Interface.IUnitOfWork;
+using Ecommerce.UI.Shared.User;
 using Ecommerce.UnitOfWork.UOW;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +17,7 @@ namespace Ecommerce.Ioc.Infrastructure
     public static class Ioc
     {
         public static void IocInfrastructure(IServiceCollection services, IConfiguration configuration)
-        {
+        {            
             services.AddDbContext<DbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IUnitOfWork, Ecommerce.UnitOfWork.UOW.UnitOfWork>();
         }
