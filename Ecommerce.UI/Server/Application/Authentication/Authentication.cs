@@ -24,5 +24,15 @@ namespace Ecommerce.UI.Server.Application.Authentication
                 };
             });
         }
+
+        public static void AuthenticationGoogle(WebApplicationBuilder builder, IServiceCollection services)
+        {
+            services.AddAuthentication()
+            .AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = builder.Configuration.GetSection("GoogleAuthentication:Google:ClientId").Value;
+                googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleAuthentication:Google:ClientSecret").Value;
+            });
+        }
     }
 }

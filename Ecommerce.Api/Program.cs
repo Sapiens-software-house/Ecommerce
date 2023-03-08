@@ -5,6 +5,9 @@ using Ecommerce.Ioc.Infrastructure;
 using Ecommerce.Ioc.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Ecommerce.UI.Shared.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,29 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Ecommerce.Api"));
 });
+
+builder.Services.AddDbContext<ApplicationDataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add Identity services
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    // Configure password requirements
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+})
+.AddEntityFrameworkStores<ApplicationDataContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration.GetConnectionString("Authentication:Google:ClientId");
+    googleOptions.ClientSecret = builder.Configuration.GetConnectionString("Authentication:Google:ClientSecret");
+});
+
 Ecommerce.Ioc.Infrastructure.Ioc.IocInfrastructure(builder.Services, builder.Configuration);
 Ecommerce.Ioc.Service.Ioc.IocService(builder.Services, builder.Configuration);
 
