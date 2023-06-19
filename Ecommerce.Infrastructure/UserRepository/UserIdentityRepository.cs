@@ -37,11 +37,43 @@ namespace Ecommerce.Infrastructure.UserRepository
 
             var userExists = await _userManager.FindByNameAsync(applicationUser.UserName);
 
-            if (userExists != null)
+            if (userExists == null)
             {             
                 result = await _userManager.CreateAsync(applicationUser, applicationUser.PasswordHash.ToString());
-            }
 
+                if (result.Succeeded)
+                {
+                    // Verifique se a role "User" existe
+                    var roleExists = await _roleManager.RoleExistsAsync("User");
+
+                    if (!roleExists)
+                    {
+                        // Crie a role "User" se ela não existir
+                        var role = new IdentityRole("User");
+                        var createRoleResult = await _roleManager.CreateAsync(role);
+
+                        if (!createRoleResult.Succeeded)
+                        {
+                            // Lida com o caso em que a criação da role falhou
+                            // Aqui você pode tomar alguma ação apropriada, como registrar o erro ou lançar uma exceção
+                        }
+                    }
+                    else
+                    {
+                        // Lida com o caso em que a role "User" não existe
+                        // Aqui você pode criar a role ou tomar outra ação apropriada
+                    }
+
+                    // Atribua a role "User" ao usuário
+                    var assignRoleResult = await _userManager.AddToRoleAsync(applicationUser, "User");
+
+                    if (!assignRoleResult.Succeeded)
+                    {
+                        // Lida com o caso em que a atribuição da role falhou
+                        // Aqui você pode tomar alguma ação apropriada, como registrar o erro ou lançar uma exceção
+                    }
+                }
+            }
             return result;
         }
 
@@ -118,11 +150,11 @@ namespace Ecommerce.Infrastructure.UserRepository
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Secret"]));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
+                issuer: _configuration["JwtConfig:ValidIssuer"],
+                audience: _configuration["JwtConfig:ValidAudience"],
                 expires: DateTime.Now.AddHours(3),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)

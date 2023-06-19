@@ -52,13 +52,13 @@ builder.Services.AddAuthentication(o =>
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtConfig.GetValue<string>("ValidIssuer"),
             ValidAudience = jwtConfig.GetValue<string>("ValidAudience"),
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetConnectionString("JwtConfig:secret"))),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.GetValue<string>("secret"))),
         };
     })
     .AddGoogle(googleOptions =>
     {
-        googleOptions.ClientId = builder.Configuration.GetConnectionString("Authentication:Google:ClientId");
-        googleOptions.ClientSecret = builder.Configuration.GetConnectionString("Authentication:Google:ClientSecret");
+        googleOptions.ClientId = builder.Configuration.GetValue<string>("GoogleAuthentication:Google:ClientId");
+        googleOptions.ClientSecret = builder.Configuration.GetValue<string>("GoogleAuthentication:Google:ClientSecret");
     });
 
 Ecommerce.Ioc.Infrastructure.Ioc.IocInfrastructure(builder.Services, builder.Configuration);
