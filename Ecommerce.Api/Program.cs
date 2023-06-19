@@ -1,24 +1,25 @@
 using Ecommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Ecommerce.Ioc;
-using Ecommerce.Ioc.Infrastructure;
-using Ecommerce.Ioc.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Ecommerce.UI.Shared.User;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<DataContext>(options =>
+
+builder.Services.AddDbContext<ApplicationDataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Ecommerce.Api"));
 });
 
-builder.Services.AddDbContext<ApplicationDataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Ecommerce.Api"));
+});
 
 // Add Identity services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -33,11 +34,32 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDataContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = builder.Configuration.GetConnectionString("Authentication:Google:ClientId");
-    googleOptions.ClientSecret = builder.Configuration.GetConnectionString("Authentication:Google:ClientSecret");
-});
+
+builder.Services.AddAuthentication(o =>
+    { 
+        o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(option => {
+        
+        var jwtConfig = builder.Configuration.GetSection("JwtConfig");
+        
+        option.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtConfig.GetValue<string>("ValidIssuer"),
+            ValidAudience = jwtConfig.GetValue<string>("ValidAudience"),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetConnectionString("JwtConfig:secret"))),
+        };
+    })
+    .AddGoogle(googleOptions =>
+    {
+        googleOptions.ClientId = builder.Configuration.GetConnectionString("Authentication:Google:ClientId");
+        googleOptions.ClientSecret = builder.Configuration.GetConnectionString("Authentication:Google:ClientSecret");
+    });
 
 Ecommerce.Ioc.Infrastructure.Ioc.IocInfrastructure(builder.Services, builder.Configuration);
 Ecommerce.Ioc.Service.Ioc.IocService(builder.Services, builder.Configuration);
@@ -45,7 +67,7 @@ Ecommerce.Ioc.Service.Ioc.IocService(builder.Services, builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c => {});
 
 var app = builder.Build();
 

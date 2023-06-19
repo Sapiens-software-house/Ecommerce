@@ -23,23 +23,24 @@ namespace Ecommerce.Ioc.Service
     {
         public static void IocService(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey =
-                        new SymmetricSecurityKey(System.Text.Encoding.UTF8
-                        .GetBytes(configuration.GetSection("AppSettings:Token").Value)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //.AddJwtBearer(options =>
+            //{
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey =
+            //            new SymmetricSecurityKey(System.Text.Encoding.UTF8
+            //            .GetBytes(configuration.GetSection("AppSettings:Token").Value)),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false
+            //    };
+            //});
             services.AddHttpContextAccessor();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IAddressService, AddressService>();
+            services.AddTransient<IRegisterUserService, RegisterUserService>();
         }
     }
 }
